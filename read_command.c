@@ -110,10 +110,22 @@ int read_command(char **command,char **parameters,char *prompt)
         printf("%s\n",parameters[i]);
 #endif
 
-//free the space of readline()
+//free the space of readline() ---error
+/**
+ * edit by reeves 
+ * 2015/07/03
+ * 下面这样写会有错误，导致readline情况下输入命令却不执行
 #ifdef READLINE_ON
     free(buffer);
     buffer = tmpbuffer;
+#endif
+    return count;
+}
+*/
+//free the space of readline()---correct
+#ifdef READLINE_ON
+    buffer=NULL;
+    free(tmpbuffer);
 #endif
     return count;
 }
